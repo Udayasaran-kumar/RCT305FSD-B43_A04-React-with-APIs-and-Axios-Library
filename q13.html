@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlled Form Basics</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+<style>
+    ul{
+        list-style-type: none;
+    }
+</style>
+</head>
+<body>
+    <div id="root"></div>
+    
+</body>
+</html>
+<script type="text/babel">
+function Greeting() {
+    const [mails, setMail] = React.useState([]);
+    const [message, setMessage] = React.useState("");
+
+    function addMessage(str) {
+        if (!str) {
+            alert("Enter a valid email");
+            return;
+        } 
+        setMail([...mails, str]); 
+        setMessage(""); 
+    }
+
+    return (
+        <div>
+            <form onSubmit={(e) => { 
+                e.preventDefault(); 
+                addMessage(message); 
+            }}>
+                <input 
+                    type="email" 
+                    placeholder="Enter email"
+                    value={message} 
+                    onChange={(e) => setMessage(e.target.value)}
+                />
+                <button type="submit">Submit</button>            
+            </form>
+
+           
+            <ul>
+                {mails.map((email, index) => (
+                    <li key={index}>{email}</li>
+                ))}
+            </ul>
+        </div>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<Greeting />);
+</script>

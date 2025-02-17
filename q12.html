@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controlled Form Basics</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+</body>
+</html>
+<script type="text/babel">
+function UncontrolledForm() {
+    const inputRef = React.useRef(null);
+
+    function handleSubmit(event) {
+        event.preventDefault();
+        const enteredText = inputRef.current.value;
+
+        if (!enteredText) {
+            alert("Please enter a message.");
+            return;
+        }
+
+        alert(`Message is: ${enteredText}`);
+        inputRef.current.value = "";
+    }
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input 
+                type="text" 
+                placeholder="Enter Message" 
+                ref={inputRef} 
+            />
+            <button type="submit">Submit</button>
+        </form>
+    );
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<UncontrolledForm />);
+</script>
